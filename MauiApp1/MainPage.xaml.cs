@@ -1,0 +1,27 @@
+﻿< ContentPage xmlns = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns: x = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x: Class = "YourAppNamespace.MainPage"
+             Title = "Tracking Management" >
+
+    < Grid RowDefinitions = "Auto, Auto, Auto, Auto, *"
+          ColumnDefinitions = "*, *"
+          Padding = "20" RowSpacing = "10" >
+
+        < Label Text = "Tracking System Status" FontSize = "24" FontAttributes = "Bold"
+               Grid.ColumnSpan = "2" HorizontalOptions = "Center" Margin = "0,0,0,20" />
+
+        < Label Text = "Latitude:" Grid.Row = "1" Grid.Column = "0" VerticalOptions = "Center" />
+        < Label x: Name = "LatLabel" Text = "Fetching..." Grid.Row = "1" Grid.Column = "1" />
+
+        < Label Text = "Longitude:" Grid.Row = "2" Grid.Column = "0" VerticalOptions = "Center" />
+        < Label x: Name = "LonLabel" Text = "Fetching..." Grid.Row = "2" Grid.Column = "1" />
+
+        < Label Text = "Network Status:" Grid.Row = "3" Grid.Column = "0" VerticalOptions = "Center" />
+        < Label x: Name = "StatusLabel" Text = "Checking..." Grid.Row = "3" Grid.Column = "1" />
+
+        < VerticalStackLayout Grid.Row = "4" Grid.ColumnSpan = "2" Spacing = "10" VerticalOptions = "End" >
+            < Entry x: Name = "TripIdEntry" Placeholder = "Enter Trip ID (e.g. T-100)" />
+            < Button Text = "Save to Local Database" Clicked = "OnSaveClicked" />
+        </ VerticalStackLayout >
+    </ Grid >
+</ ContentPage >
