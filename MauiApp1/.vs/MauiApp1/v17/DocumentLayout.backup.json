@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "MainPage.xaml.cs",
               "ToolTip": "E:\\gh\\finaltest\\MauiApp1\\MainPage.xaml.cs",
               "RelativeToolTip": "MainPage.xaml.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAiwFAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAiwFAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-24T08:42:22.455Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "MainPage.xaml",
               "ViewState": "AgIAAAEAAAAAAAAAAAAQwB4AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-24T08:42:11.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-24T08:42:11.486Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "TripData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-24T08:41:53.917Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-24T08:41:53.917Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "Platforms\\Android\\AndroidManifest.xml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2025-12-24T08:41:33.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-24T08:41:33.208Z"
             }
           ]
         }
