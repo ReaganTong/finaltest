@@ -1,27 +1,54 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YourAppNamespace.MainPage"
-             Title="Tracking Management">
+             x:Class="MauiApp1.MainPage"
+             Title="Vehicle Tracking System">
 
-    <Grid RowDefinitions="Auto, Auto, Auto, Auto, *" 
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, *" 
           ColumnDefinitions="*, *" 
           Padding="20" RowSpacing="10">
 
-        <Label Text="Tracking System Status" FontSize="24" FontAttributes="Bold"
-               Grid.ColumnSpan="2" HorizontalOptions="Center" Margin="0,0,0,20"/>
+        <Label Text="System Status" 
+               Grid.Row="0" Grid.ColumnSpan="2" 
+               FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
-        <Label Text="Latitude:" Grid.Row="1" Grid.Column="0" VerticalOptions="Center"/>
-        <Label x:Name="LatLabel" Text="Fetching..." Grid.Row="1" Grid.Column="1" />
+        <Label Text="Latitude:" Grid.Row="1" Grid.Column="0" FontAttributes="Bold"/>
+        <Label x:Name="LatLabel" Text="Loading..." Grid.Row="1" Grid.Column="1"/>
 
-        <Label Text="Longitude:" Grid.Row="2" Grid.Column="0" VerticalOptions="Center"/>
-        <Label x:Name="LonLabel" Text="Fetching..." Grid.Row="2" Grid.Column="1" />
+        <Label Text="Longitude:" Grid.Row="2" Grid.Column="0" FontAttributes="Bold"/>
+        <Label x:Name="LonLabel" Text="Loading..." Grid.Row="2" Grid.Column="1"/>
 
-        <Label Text="Network Status:" Grid.Row="3" Grid.Column="0" VerticalOptions="Center"/>
-        <Label x:Name="StatusLabel" Text="Checking..." Grid.Row="3" Grid.Column="1" />
+        <Label Text="Network:" Grid.Row="3" Grid.Column="0" FontAttributes="Bold"/>
+        <Label x:Name="NetLabel" Text="Checking..." Grid.Row="3" Grid.Column="1"/>
 
-        <VerticalStackLayout Grid.Row="4" Grid.ColumnSpan="2" Spacing="10" VerticalOptions="End">
-            <Entry x:Name="TripIdEntry" Placeholder="Enter Trip ID (e.g. T-100)" />
-            <Button Text="Save to Local Database" Clicked="OnSaveClicked" />
+        <VerticalStackLayout Grid.Row="4" Grid.ColumnSpan="2" Spacing="10" Margin="0,10,0,0">
+            <Label Text="New Trip Entry:" FontSize="18" TextColor="Gray"/>
+            <Entry x:Name="TripIdEntry" Placeholder="Enter Trip ID (e.g., T-100)" />
+            <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" />
+            <Button Text="Save Trip Data" Clicked="OnSaveTripClicked" BackgroundColor="#512BD4" TextColor="White"/>
         </VerticalStackLayout>
+
+        <Label Text="Trip History" Grid.Row="5" Grid.ColumnSpan="2" 
+               FontSize="20" FontAttributes="Bold" Margin="0,15,0,5"/>
+
+        <CollectionView x:Name="TripList" Grid.Row="6" Grid.ColumnSpan="2">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="10" BorderColor="Gray" BackgroundColor="#F0F0F0">
+                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
+                            <Label Text="{Binding TripId}" FontAttributes="Bold" FontSize="16" Grid.Row="0" Grid.Column="0"/>
+                            <Label Text="{Binding Timestamp}" TextColor="Gray" FontSize="12" Grid.Row="0" Grid.Column="1"/>
+
+                            <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="5">
+                                <Label Text="Loc:" TextColor="#512BD4"/>
+                                <Label Text="{Binding Latitude}" />
+                                <Label Text="," />
+                                <Label Text="{Binding Longitude}" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
     </Grid>
 </ContentPage>

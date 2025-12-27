@@ -1,10 +1,14 @@
 ﻿using SQLite;
 
-public class TripData
+namespace MauiApp1
 {
-    [PrimaryKey, AutoIncrement]
-    public int ID { get; set; }
-    public string TripId { get; set; } // User-defined ID
-    public string Latitude { get; set; }
-    public string Longitude { get; set; }
+    public class TripData
+    {
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; }
+        public string TripId { get; set; } // The ID user enters (e.g., T-100)
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public DateTime Timestamp { get; set; }
+    }
 }

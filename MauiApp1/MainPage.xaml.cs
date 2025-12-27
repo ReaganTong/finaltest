@@ -1,27 +1,104 @@
-﻿< ContentPage xmlns = "http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns: x = "http://schemas.microsoft.com/winfx/2009/xaml"
-             x: Class = "YourAppNamespace.MainPage"
-             Title = "Tracking Management" >
+﻿using Microsoft.Maui.Devices.Sensors;
+using Microsoft.Maui.Networking;
+using SQLite;
+using System.Collections.ObjectModel;
 
-    < Grid RowDefinitions = "Auto, Auto, Auto, Auto, *"
-          ColumnDefinitions = "*, *"
-          Padding = "20" RowSpacing = "10" >
+namespace MauiApp1
+{
+    public partial class MainPage : ContentPage
+    {
+        private SQLiteAsyncConnection _database;
 
-        < Label Text = "Tracking System Status" FontSize = "24" FontAttributes = "Bold"
-               Grid.ColumnSpan = "2" HorizontalOptions = "Center" Margin = "0,0,0,20" />
+        // This collection allows the UI to update automatically when we add items
+        public ObservableCollection<TripData> TripsCollection { get; set; } = new ObservableCollection<TripData>();
 
-        < Label Text = "Latitude:" Grid.Row = "1" Grid.Column = "0" VerticalOptions = "Center" />
-        < Label x: Name = "LatLabel" Text = "Fetching..." Grid.Row = "1" Grid.Column = "1" />
+        public MainPage()
+        {
+            InitializeComponent();
 
-        < Label Text = "Longitude:" Grid.Row = "2" Grid.Column = "0" VerticalOptions = "Center" />
-        < Label x: Name = "LonLabel" Text = "Fetching..." Grid.Row = "2" Grid.Column = "1" />
+            // Connect the UI List to our data collection
+            TripList.ItemsSource = TripsCollection;
 
-        < Label Text = "Network Status:" Grid.Row = "3" Grid.Column = "0" VerticalOptions = "Center" />
-        < Label x: Name = "StatusLabel" Text = "Checking..." Grid.Row = "3" Grid.Column = "1" />
+            InitializeDatabase();
+            LoadDeviceData();
+        }
 
-        < VerticalStackLayout Grid.Row = "4" Grid.ColumnSpan = "2" Spacing = "10" VerticalOptions = "End" >
-            < Entry x: Name = "TripIdEntry" Placeholder = "Enter Trip ID (e.g. T-100)" />
-            < Button Text = "Save to Local Database" Clicked = "OnSaveClicked" />
-        </ VerticalStackLayout >
-    </ Grid >
-</ ContentPage >
+        private async void InitializeDatabase()
+        {
+            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "tracking_system.db3");
+            _database = new SQLiteAsyncConnection(dbPath);
+            await _database.CreateTableAsync<TripData>();
+
+            // Load existing history immediately
+            LoadHistory();
+        }
+
+        private async void LoadHistory()
+        {
+            // Get all items from database, newest first
+            var trips = await _database.Table<TripData>().OrderByDescending(t => t.Timestamp).ToListAsync();
+
+            TripsCollection.Clear();
+            foreach (var trip in trips)
+            {
+                TripsCollection.Add(trip);
+            }
+        }
+
+        private async void LoadDeviceData()
+        {
+            NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+            NetLabel.Text = accessType == NetworkAccess.Internet ? "Connected" : "Offline";
+            NetLabel.TextColor = accessType == NetworkAccess.Internet ? Colors.Green : Colors.Red;
+
+            try
+            {
+                var location = await Geolocation.Default.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Medium));
+                if (location != null)
+                {
+                    LatLabel.Text = location.Latitude.ToString("F5");
+                    LonLabel.Text = location.Longitude.ToString("F5");
+                }
+            }
+            catch (Exception)
+            {
+                LatLabel.Text = "GPS Error";
+                LonLabel.Text = "GPS Error";
+            }
+        }
+
+        private async void OnSaveTripClicked(object sender, EventArgs e)
+        {
+            string tripId = TripIdEntry.Text;
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(tripId))
+            {
+                ErrorLabel.Text = "Trip ID cannot be empty.";
+                ErrorLabel.IsVisible = true;
+                return;
+            }
+
+            // Create Data Object
+            var newTrip = new TripData
+            {
+                TripId = tripId,
+                Latitude = double.Parse(LatLabel.Text == "GPS Error" || LatLabel.Text == "Loading..." ? "0" : LatLabel.Text),
+                Longitude = double.Parse(LonLabel.Text == "GPS Error" || LonLabel.Text == "Loading..." ? "0" : LonLabel.Text),
+                Timestamp = DateTime.Now
+            };
+
+            // Save to Database
+            await _database.InsertAsync(newTrip);
+
+            // Update UI
+            ErrorLabel.IsVisible = false;
+            TripIdEntry.Text = string.Empty;
+
+            // Refresh the list to show the new item
+            LoadHistory();
+
+            await DisplayAlert("Success", "Trip saved and history updated!", "OK");
+        }
+    }
+}

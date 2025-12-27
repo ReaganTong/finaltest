@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\gh\\Final\\MauiApp1\\MauiApp1.csproj": {}
+    "E:\\gh\\finaltest\\MauiApp1\\MauiApp1.csproj": {}
   },
   "projects": {
-    "E:\\gh\\Final\\MauiApp1\\MauiApp1.csproj": {
+    "E:\\gh\\finaltest\\MauiApp1\\MauiApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\gh\\Final\\MauiApp1\\MauiApp1.csproj",
+        "projectUniqueName": "E:\\gh\\finaltest\\MauiApp1\\MauiApp1.csproj",
         "projectName": "MauiApp1",
-        "projectPath": "E:\\gh\\Final\\MauiApp1\\MauiApp1.csproj",
+        "projectPath": "E:\\gh\\finaltest\\MauiApp1\\MauiApp1.csproj",
         "packagesPath": "C:\\Users\\reaga\\.nuget\\packages\\",
-        "outputPath": "E:\\gh\\Final\\MauiApp1\\obj\\",
+        "outputPath": "E:\\gh\\finaltest\\MauiApp1\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
@@ -80,6 +80,10 @@
               "target": "Package",
               "version": "[9.0.9, )",
               "autoReferenced": true
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.10.196-beta, )"
             }
           },
           "imports": [
@@ -125,6 +129,10 @@
               "target": "Package",
               "version": "[9.0.9, )",
               "autoReferenced": true
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.10.196-beta, )"
             }
           },
           "imports": [
@@ -170,6 +178,10 @@
               "target": "Package",
               "version": "[9.0.9, )",
               "autoReferenced": true
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.10.196-beta, )"
             }
           },
           "imports": [
@@ -210,6 +222,10 @@
             "Microsoft.Maui.Controls": {
               "target": "Package",
               "version": "[9.0.111, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.10.196-beta, )"
             }
           },
           "imports": [
