@@ -1,4 +1,5 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.MainPage"
              Title="Vehicle Tracking System"
@@ -8,9 +9,7 @@
           ColumnDefinitions="*"
           RowSpacing="15">
 
-        <Border Grid.Row="0" StrokeThickness="0" 
-                Padding="20,40,20,30" 
-                HorizontalOptions="Fill">
+        <Border Grid.Row="0" StrokeThickness="0" Padding="20,40,20,30">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#1E3A8A" Offset="0.0" />
@@ -20,11 +19,9 @@
 
             <Grid ColumnDefinitions="Auto, *" ColumnSpacing="15">
                 <Frame Grid.Column="0" HeightRequest="60" WidthRequest="60" 
-                       CornerRadius="30" Padding="0" IsClippedToBounds="True" 
-                       BorderColor="White" HasShadow="False">
+                       CornerRadius="30" Padding="0" IsClippedToBounds="True" BorderColor="White">
                     <Image Source="truckkun" Aspect="AspectFill" BackgroundColor="White"/>
                 </Frame>
-
                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                     <Label Text="Live Tracking" TextColor="White" FontSize="14" Opacity="0.8"/>
                     <Label Text="Truck kun" TextColor="White" FontSize="24" FontAttributes="Bold"/>
@@ -33,16 +30,14 @@
         </Border>
 
         <Grid Grid.Row="1" ColumnDefinitions="*, *" ColumnSpacing="15" Padding="20,0">
-
-            <Frame Grid.Column="0" CornerRadius="10" HasShadow="True" Padding="15" BackgroundColor="White" BorderColor="Transparent">
+            <Frame Grid.Column="0" CornerRadius="10" HasShadow="True" Padding="15" BackgroundColor="White">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="LATITUDE" FontSize="10" TextColor="#6B7280" FontAttributes="Bold"/>
                     <Label x:Name="LatLabel" Text="Loading..." FontSize="18" TextColor="#111827" FontAttributes="Bold"/>
-                    <Label Text="📍 GPS Signal" FontSize="10" TextColor="#10B981"/>
+                    <Label Text="📍 GPS Active" FontSize="10" TextColor="#10B981"/>
                 </VerticalStackLayout>
             </Frame>
-
-            <Frame Grid.Column="1" CornerRadius="10" HasShadow="True" Padding="15" BackgroundColor="White" BorderColor="Transparent">
+            <Frame Grid.Column="1" CornerRadius="10" HasShadow="True" Padding="15" BackgroundColor="White">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="LONGITUDE" FontSize="10" TextColor="#6B7280" FontAttributes="Bold"/>
                     <Label x:Name="LonLabel" Text="Loading..." FontSize="18" TextColor="#111827" FontAttributes="Bold"/>
@@ -51,44 +46,36 @@
             </Frame>
         </Grid>
 
-        <Frame Grid.Row="2" Margin="20,0" CornerRadius="10" Padding="15" HasShadow="True" BackgroundColor="White" BorderColor="Transparent">
-            <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
-                <Border Grid.Column="0" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 5" Padding="10,0">
-                    <Entry x:Name="TripIdEntry" Placeholder="Enter Trip ID (e.g. T-105)" TextColor="#374151" PlaceholderColor="#9CA3AF" BackgroundColor="Transparent"/>
-                </Border>
-                <Button Grid.Column="1" Text="SAVE" Clicked="OnSaveTripClicked" 
-                        BackgroundColor="#2563EB" TextColor="White" FontAttributes="Bold" CornerRadius="5" HeightRequest="45"/>
-            </Grid>
+        <Frame Grid.Row="2" Margin="20,0" CornerRadius="10" Padding="15" HasShadow="True" BackgroundColor="White">
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                    <Border Grid.Column="0" Stroke="#E5E7EB" Padding="10,0">
+                        <Entry x:Name="TripIdEntry" Placeholder="Trip ID (e.g. T-105)" TextColor="#374151"/>
+                    </Border>
+                    <Button Grid.Column="1" Text="SAVE" Clicked="OnSaveTripClicked" BackgroundColor="#2563EB" TextColor="White"/>
+                </Grid>
+                <Label x:Name="ErrorLabel" TextColor="#EF4444" FontSize="12" IsVisible="False" />
+            </VerticalStackLayout>
         </Frame>
-
-        <Label x:Name="ErrorLabel" Grid.Row="2" TextColor="#EF4444" FontSize="11" Margin="25,-5,0,0" 
-               VerticalOptions="End" IsVisible="False" InputTransparent="True"/>
 
         <Grid Grid.Row="3" Padding="20,10,20,0" RowDefinitions="Auto, *">
             <Label Grid.Row="0" Text="Recent Activity" FontSize="16" FontAttributes="Bold" TextColor="#374151" Margin="0,0,0,10"/>
-
             <CollectionView x:Name="TripList" Grid.Row="1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border StrokeThickness="0" BackgroundColor="White" Margin="0,0,0,10" StrokeShape="RoundRectangle 8">
-                            <Grid ColumnDefinitions="10, *, Auto" Padding="0">
-                                <BoxView Grid.Column="0" Color="#3B82F6"/>
-
-                                <VerticalStackLayout Grid.Column="1" Padding="10">
-                                    <Label Text="{Binding TripId}" FontSize="15" FontAttributes="Bold" TextColor="#1F2937"/>
-                                    <Label Text="{Binding Timestamp, StringFormat='{0:MMM dd, HH:mm tt}'}" FontSize="11" TextColor="#6B7280"/>
+                        <Border StrokeThickness="0" BackgroundColor="White" Margin="0,0,0,10">
+                            <Grid ColumnDefinitions="10, *, Auto" Padding="10">
+                                <BoxView Grid.Column="0" Color="#3B82F6" WidthRequest="4" HorizontalOptions="Start"/>
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="{Binding TripId}" FontAttributes="Bold" TextColor="#1F2937"/>
+                                    <Label Text="{Binding Timestamp, StringFormat='{0:MMM dd, HH:mm}'}" FontSize="11" TextColor="#6B7280"/>
                                 </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Column="2" Padding="10" VerticalOptions="Center" HorizontalOptions="End">
-                                    <Label Text="{Binding Latitude, StringFormat='{0:F4}'}" FontSize="11" TextColor="#4B5563" HorizontalOptions="End"/>
-                                    <Label Text="{Binding Longitude, StringFormat='{0:F4}'}" FontSize="11" TextColor="#4B5563" HorizontalOptions="End"/>
-                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="{Binding Latitude, StringFormat='{0:F2}'}" VerticalOptions="Center" FontSize="11"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-
     </Grid>
 </ContentPage>
